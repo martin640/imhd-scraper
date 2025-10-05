@@ -11,8 +11,6 @@ Library for scraping public transport departures from imhd.sk website
 
 ## Installation
 
-**BEFORE YOU INSTALL:** please read the [prerequisites](#prerequisites)
-
 To install the library, run:
 
 ```sh
