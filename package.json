@@ -1,0 +1,21 @@
+{
+    "name": "imhd-scraper",
+    "version": "1.0.2",
+    "scripts": {
+        "test": "jest"
+    },
+    "dependencies": {
+        "axios": "^1.12.2",
+        "node-html-parser": "^7.0.1"
+    },
+    "devDependencies": {
+        "tsx": "^4.20.6",
+        "jest": "^30.2.0",
+        "ts-jest": "^29.4.4",
+        "@types/jest": "^30.0.0"
+    },
+    "keywords": ["mhd", "imhd", "bratislava", "public_transport"],
+    "author": "Martin Matejov",
+    "license": "MIT",
+    "description": ""
+}
