@@ -4,10 +4,15 @@ import { BaseQueryOptions, Line, LineQueryOptions, LineStop, LineStopWithDepartu
 import { loadVarsFromEval } from './util'
 import { LineDeparturesJson } from './types/api'
 
+let timezoneOffset = 0
 let cityCode: string = 'ba'
 
 export const setDefaultCityCode = (c: string) => {
     cityCode = c
+}
+
+export const setTimezoneOffset = (n: number) => {
+    timezoneOffset = n
 }
 
 export const getLines = async (query?: BaseQueryOptions): Promise<string[]> => {
@@ -100,7 +105,7 @@ export const getDepartures = async (stop: LineStop): Promise<LineStopWithDepartu
         const minutes = x.querySelectorAll('td')
         minutes.forEach(y => {
             const minute = y.innerText.replace(/\D/g, '')
-            const time = new Date()
+            const time = new Date
             time.setHours(Number(hour), Number(minute), 0, 0)
             // sm14 T 11293542   T 0 T 62051   T 1 T 15673177
             const idParts = y.id.split('T')
@@ -112,7 +117,7 @@ export const getDepartures = async (stop: LineStop): Promise<LineStopWithDepartu
             
             departures.push({
                 ...stop,
-                departure: time.getTime(),
+                departure: time.getTime() - timezoneOffset,
                 hrefDetails: `/${prefix}/nacitaj-odchody-spojov?dis=${dis}&iddis=${iddis}&set=${set}&trip=${trip}&tzo=&tz=&diy=&ad=0&db=`
             })
         })
@@ -134,7 +139,7 @@ export const getLineSchedule = async (scheduledDeparture: LineStopWithDeparture)
         if (stop) {
             const dep: LineStopWithDeparture = {
                 ...stop,
-                departure: today.getTime() + (((typeof details.Departure !== 'undefined') ? details.Departure : ((typeof details.Arrival !== 'undefined') ? details.Arrival : 0)) * 1000),
+                departure: today.getTime() - timezoneOffset + (((typeof details.Departure !== 'undefined') ? details.Departure : ((typeof details.Arrival !== 'undefined') ? details.Arrival : 0)) * 1000),
                 // todo: we don't have data to build this url, we can use scheduledDeparture.hrefDetails calling getDepartures() will yield incorrect departure times
                 hrefDetails: scheduledDeparture.hrefDetails
             }
